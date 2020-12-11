@@ -426,7 +426,7 @@ func sortStrings(values []string) []string {
 }
 
 // reverses the list of objects
-func reverse(objs []interface{}) []interface{} {
+func reverse(objs sort.Interface) sort.Interface {
     return sort.Reverse(objs)
 }
 	
@@ -437,7 +437,7 @@ func sortObjects(objs interface{}, key string) (interface{}, error) {
         return nil, err
     }
     data := make([]interface{}, objsVal.Len())
-    for i := 0; i < objsVal.Len(); i {
+    for i := 0; i < objsVal.Len(); i++ {
         data[i] = objsVal.Index(i).Interface()
     }
     sort.Slice(data, func(i, j int) bool {
