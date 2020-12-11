@@ -419,17 +419,6 @@ func when(condition bool, trueValue, falseValue interface{}) interface{} {
 	}
 }
 
-// sortStrings returns a sorted array of strings
-func sortStrings(values []string) []string {
-	sort.Strings(values)
-	return values
-}
-
-// reverses the list of objects
-func reverse(objs sort.Interface) sort.Interface {
-    return sort.Reverse(objs)
-}
-	
 // sortObjects returns a sorted array of objects (sorted by object key field)
 func sortObjects(objs interface{}, key string) (interface{}, error) {
     objsVal, err := getArrayValues("sortObj", objs)
@@ -471,9 +460,12 @@ func newTemplate(name string) *template.Template {
 		"parseBool":              strconv.ParseBool,
 		"parseJson":              unmarshalJson,
 		"queryEscape":            url.QueryEscape,
+		"reverse":				  sort.Reverse,
 		"sha1":                   hashSha1,
 		"split":                  strings.Split,
 		"splitN":                 strings.SplitN,
+		"sortStrings":			  sort.Strings,
+		"sortObjcts":			  sortObjcts,
 		"trimPrefix":             trimPrefix,
 		"trimSuffix":             trimSuffix,
 		"trim":                   trim,
