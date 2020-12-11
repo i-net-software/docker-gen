@@ -419,6 +419,12 @@ func when(condition bool, trueValue, falseValue interface{}) interface{} {
 	}
 }
 
+// sortStrings returns a sorted array of strings
+func sortStrings(values []string) []string {
+	sort.Strings(values)
+	return values
+}
+
 // sortObjects returns a sorted array of objects (sorted by object key field)
 func sortObjects(objs interface{}, key string) (interface{}, error) {
 	objsVal, err := getArrayValues("sortObj", objs)
@@ -464,7 +470,7 @@ func newTemplate(name string) *template.Template {
 		"sha1":                   hashSha1,
 		"split":                  strings.Split,
 		"splitN":                 strings.SplitN,
-		"sortStrings":            sort.Strings,
+		"sortStrings":            sortStrings,
 		"sortObjects":            sortObjects,
 		"trimPrefix":             trimPrefix,
 		"trimSuffix":             trimSuffix,
