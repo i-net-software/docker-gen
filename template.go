@@ -16,6 +16,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sort"
 	"syscall"
 	"text/template"
 )
@@ -416,6 +417,35 @@ func when(condition bool, trueValue, falseValue interface{}) interface{} {
 	} else {
 		return falseValue
 	}
+}
+
+// sortStrings returns a sorted array of strings
+func sortStrings(values []string) []string {
+	sort.Strings(values)
+	return values
+}
+
+// reverses the list of objects
+func reverse(objs []interface{}) []interface{} {
+    return sort.Reverse(objs)
+}
+	
+// sortObjects returns a sorted array of objects (sorted by object key field)
+func sortObjects(objs interface{}, key string) (interface{}, error) {
+    objsVal, err := getArrayValues("sortObj", objs)
+    if err != nil {
+        return nil, err
+    }
+    data := make([]interface{}, objsVal.Len())
+    for i := 0; i < objsVal.Len(); i {
+        data[i] = objsVal.Index(i).Interface()
+    }
+    sort.Slice(data, func(i, j int) bool {
+        a := reflect.ValueOf(deepGet(data[i], key)).Interface().(string)
+        b := reflect.ValueOf(deepGet(data[j], key)).Interface().(string)
+        return a < b
+    })
+    return data, nil
 }
 
 func newTemplate(name string) *template.Template {
