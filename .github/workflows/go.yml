@@ -25,7 +25,7 @@ jobs:
       run: make get-deps
 
     - name: Build
-      run: make all
+      run: make
 
     - name: Test
       run: make all check-gofmt test
