@@ -465,7 +465,7 @@ func newTemplate(name string) *template.Template {
 		"split":                  strings.Split,
 		"splitN":                 strings.SplitN,
 		"sortStrings":            sort.Strings,
-		"sortObjcts":             sortObjcts,
+		"sortObjects":             sortObjects,
 		"trimPrefix":             trimPrefix,
 		"trimSuffix":             trimSuffix,
 		"trim":                   trim,
