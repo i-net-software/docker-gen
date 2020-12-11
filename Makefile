@@ -8,7 +8,8 @@ all: docker-gen
 
 docker-gen:
 	echo "Building docker-gen"
-	go build -ldflags "$(LDFLAGS)" ./cmd/docker-gen
+	mkdir -p dist
+	go build -ldflags "$(LDFLAGS)" -o dist/docker-gen ./cmd/docker-gen
 
 dist-clean:
 	rm -rf dist
