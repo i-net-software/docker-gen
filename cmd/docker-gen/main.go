@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"sync"
 
+	"../.."
 	"github.com/BurntSushi/toml"
 	docker "github.com/fsouza/go-dockerclient"
-	"../.."
 )
 
 type stringslice []string
