@@ -425,6 +425,12 @@ func sortStrings(values []string) []string {
 	return values
 }
 
+// sortStrings returns a sorted array of strings
+func sortStringsReverse(values []string) []string {
+	sort.Sort(sort.Reverse(sort.StringSlice( values )))
+	return values
+}
+
 // sortObjects returns a sorted array of objects (sorted by object key field)
 func sortObjects(objs interface{}, key string) (interface{}, error) {
 	objsVal, err := getArrayValues("sortObj", objs)
@@ -471,6 +477,7 @@ func newTemplate(name string) *template.Template {
 		"split":                  strings.Split,
 		"splitN":                 strings.SplitN,
 		"sortStrings":            sortStrings,
+		"sortStringsReverse":     sortStringsReverse,
 		"sortObjects":            sortObjects,
 		"trimPrefix":             trimPrefix,
 		"trimSuffix":             trimSuffix,
