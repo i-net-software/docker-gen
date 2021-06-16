@@ -292,10 +292,20 @@ func intersect(l1, l2 []string) []string {
 	return keys
 }
 
-func contains(item map[string]string, key string) bool {
-	if _, ok := item[key]; ok {
-		return true
+func contains(input interface{}, key interface{}) bool {
+	if input == nil {
+		return false
 	}
+
+	val := reflect.ValueOf(input)
+	if val.Kind() == reflect.Map {
+		for _, k := range val.MapKeys() {
+			if k.Interface() == key {
+				return true
+			}
+		}
+	}
+
 	return false
 }
 
@@ -552,7 +562,16 @@ func GenerateFile(config Config, containers Context) bool {
 		}
 
 		oldContents := []byte{}
-		if fi, err := os.Stat(config.Dest); err == nil {
+		if fi, err := os.Stat(config.Dest); err == nil || os.IsNotExist(err) {
+			if err != nil && os.IsNotExist(err) {
+				emptyFile, err := os.Create(config.Dest)
+				if err != nil {
+					log.Fatalf("Unable to create empty destination file: %s\n", err)
+				} else {
+					emptyFile.Close()
+					fi, err = os.Stat(config.Dest)
+				}
+			}
 			if err := dest.Chmod(fi.Mode()); err != nil {
 				log.Fatalf("Unable to chmod temp file: %s\n", err)
 			}
